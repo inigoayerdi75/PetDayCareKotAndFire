@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ListadoDeMascotas">
+
+
+    <TextView
+        android:id="@+id/textViewListaVacia"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No existe ninguna mascota.\n Añade una mascota al listado."
+        android:textSize="25sp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:visibility="gone"
+        />
+
+    <ListView
+        android:id="@+id/listViewMascotas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageButton
+        android:id="@+id/imageButtonAddMascota"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/btn_star"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="30dp"/>
+
+</RelativeLayout>

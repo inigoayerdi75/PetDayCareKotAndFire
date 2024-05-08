@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.get
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 
@@ -22,6 +23,7 @@ class EditarMascota : AppCompatActivity() {
     lateinit var editTextDuenno : EditText
     lateinit var editTextNumberPeso : EditText
     lateinit var spinnerSexo : Spinner
+    lateinit var mascotaRecibida : Mascota
     var arraySexo = ArrayList<String>()
     val db = Firebase.firestore
     @SuppressLint("MissingInflatedId")
@@ -38,7 +40,7 @@ class EditarMascota : AppCompatActivity() {
         spinnerSexo = findViewById(R.id.spinnerSexoAlta)
 
         val intent = intent
-        val mascotaRecibida = intent.getSerializableExtra("mascota") as Mascota
+        mascotaRecibida = intent.getSerializableExtra("mascota") as Mascota
         val idMascota = intent.getStringExtra("id") as String
         editarMascota(mascotaRecibida)
 
@@ -127,8 +129,16 @@ class EditarMascota : AppCompatActivity() {
     }
 
     fun modificar(id : String){
+        var sex = ""
+        if(spinnerSexo.selectedItemPosition == -1 || spinnerSexo.selectedItemPosition == 0){
+            sex = mascotaRecibida.sexo
+        }else{
+            sex = spinnerSexo.selectedItem.toString()
+        }
         db.collection("Mascotas").document(id)
-            .update("nombre",editTextNombre.text.toString(),"especie", editTextEspecie.text.toString())
+            .update("nombre",editTextNombre.text.toString(),"especie",
+                    editTextEspecie.text.toString(),"duenno",editTextDuenno.text.toString(),
+                    "raza",editTextRaza.text.toString(),"peso",editTextNumberPeso.text.toString().toDouble(),"sexo",sex)
             .addOnCompleteListener {
                 if(it.isSuccessful){
                     Toast.makeText(applicationContext,"Se ha modificado correctamente", Toast.LENGTH_SHORT).show()
